@@ -9,7 +9,7 @@
 #   - You can enter hostnames or ip addresses
 #   - A hostname/ip can be a member of multiple groups
 
-[anygroup]
+[workstation]
 server1     ansible_host=192.168.0.1
 server2     ansible_host=192.168.0.2
 server3     ansible_host=192.168.0.3

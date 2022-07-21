@@ -1,0 +1,20 @@
+---
+- name: Add R public key
+  ansible.builtin.get_url:
+    url: https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc
+    dest: /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
+    mode: '0644'
+    force: true
+    
+- name: Add source repository into sources list
+  ansible.builtin.apt_repository:
+    repo: "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
+    state: present
+
+- name: Install apt packages
+  ansible.builtin.apt:
+    pkg:
+      - r-base
+      - r-recommended
+    update_cache: yes
+

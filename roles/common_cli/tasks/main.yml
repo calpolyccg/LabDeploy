@@ -1,0 +1,39 @@
+---
+# A role for installing common ***CLI-only*** tools.
+#
+- name: Install CLI packages via Apt
+  ansible.builtin.apt:
+    pkg:
+        # multiplexers
+      - tmux
+      - screen
+      - byobu
+
+        # remote management
+      - ansible
+      - openssh-server
+
+        # system info
+      - neofetch
+      - htop
+      - iotop
+      - iftop
+
+        # HTTP clients
+      - curl
+      - wget
+        
+        # version control
+      - git
+      - mercurial
+      - subversion
+
+        # misc. tools
+      - flatpak
+      - software-properties-common
+      - build-essentials
+      - docker
+      - docker-compose
+      - neovim
+    update_cache: yes
+    cache_valid_time: 3600
