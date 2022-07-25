@@ -36,3 +36,9 @@
       - docker-compose
       - neovim
       - gromacs
+  
+- name: Enable SSH on boot
+  ansible.builtin.systemd:
+    name: sshd.service
+    enabled: true
+    state: started

@@ -15,6 +15,10 @@ bootstrap_workstation() {
   # This will undo the changes that this script makes.
   # rm -rf ~ansible && userdel ansible
 
+  echo "Installing an SSH server..."
+  dnf install -y openssh-server
+  firewall-cmd --add-service=ssh --zone=public --permanent
+
   echo "Creating Ansible user..."
   useradd ansible -mr -G wheel -c "Ansible Admin"
   

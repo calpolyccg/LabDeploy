@@ -49,9 +49,10 @@
       - com.elsevier.MendeleyDesktop
 
       # Other tools
-      - io.github.Qalculate
       - com.bitwarden.desktop
+      - com.spotify.Client
       - com.valvesoftware.Steam
+      - io.github.Qalculate
     state: present
 
 - name: Set system hostname
