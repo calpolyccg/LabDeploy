@@ -1,0 +1,19 @@
+---
+# Installs a hardened SSH server.
+# Adapted from guide on setting up 2FA: https://www.linode.com/docs/guides/how-to-use-one-time-passwords-for-two-factor-authentication-with-ssh-on-centos/
+#
+- name: Install packages
+  ansible.builtin.dnf:
+    pkg:
+      - openssh-server
+      - libpam-google-authenticator
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Add SSH hardening config
+  ansible.builtin.copy:
+    src: "{{ role_path }}/file/sshd_hardening.conf"
+    dest: /etc/sshd/sshd_config.d/00-ssh_hardening.conf # earlier configs override later configs
+    force: yes
+
+- name: PAM

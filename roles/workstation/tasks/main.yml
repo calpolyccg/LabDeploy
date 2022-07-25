@@ -1,48 +1,63 @@
 ---
-dependencies:
-  - role: common_cli
-  - role: conda
-  - role: rlang
-
 - name: Check connectivity
   ping:
     data: alive
   tags: check 
 
-- name: Install apt packages
-  ansible.builtin.apt:
+- name: Install packages
+  ansible.builtin.dnf:
     pkg:
-      - flatpak
-      - software-properties-common
-      - dirmngr
+      - wireshark
+      - rstudio-desktop
+      - rstudio-server
 
       - nvidia-utils-515
       - nvidia-driver-515
 
       - texlive-full
-    update_cache: yes
-    cache_valid_time: 3600
 
-- name: Upgrade apt packages
-  ansible.builtin.apt:
+- name: Upgrade dnf packages
+  ansible.builtin.dnf:
     name: '*'
-    update_cache: yes
-    autoremove: yes
-    cache_valid_time: 3600
     state: latest
 
+- name: Add flathub remote
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+    method: user
+
 - name: Install flatpak packages
-  ansible.builtin.apt:
+  community.general.flatpak:
     name:
-      - com.discordapp.Discord
-      - com.elsevier.MendeleyDesktop
-      - com.slack.Slack
+      # IDEs
+      - com.jetbrains.PyCharm-Community
+      - com.jetbrains.PyCharm-Professional
+      - com.jetbrains.CLion
+      - com.visualstudio.code
+
+      # File editors
+      - org.blender.Blender
       - org.gimp.GIMP
       - org.inkscape.Inkscape
       - org.libreoffice.LibreOffice
-      - org.mozilla.firefox
-      - org.zotero.Zotero
+      - org.texstudio.TeXstudio
+
+      # Communication
+      - com.discordapp.Discord
+      - com.slack.Slack
+      - im.pidgin.Pidgin
       - us.zoom.Zoom
+
+      # Citation managers
+      - org.zotero.Zotero
+      - com.elsevier.MendeleyDesktop
+
+      # Other tools
+      - io.github.Qalculate
+      - com.bitwarden.desktop
+      - com.valvesoftware.Steam
 
     update_cache: yes
     cache_valid_time: 3600
