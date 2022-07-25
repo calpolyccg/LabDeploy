@@ -24,6 +24,7 @@
       - wget
         
       # version control
+      - gh
       - git
       - mercurial
       - subversion

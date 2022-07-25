@@ -1,6 +1,7 @@
 ---
 - hosts: workstation
   become: true
+  strategy: free
   roles:
     - workstation
 

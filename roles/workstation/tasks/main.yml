@@ -1,9 +1,4 @@
 ---
-- name: Check connectivity
-  ping:
-    data: alive
-  tags: check 
-
 - name: Install packages
   ansible.builtin.dnf:
     pkg:
@@ -11,10 +6,9 @@
       - rstudio-desktop
       - rstudio-server
 
-      - nvidia-utils-515
-      - nvidia-driver-515
+      - akmod-nvidia
 
-      - texlive-full
+      - texlive-scheme-full
 
 - name: Upgrade dnf packages
   ansible.builtin.dnf:
@@ -58,8 +52,8 @@
       - io.github.Qalculate
       - com.bitwarden.desktop
       - com.valvesoftware.Steam
+    state: present
 
-    update_cache: yes
-    cache_valid_time: 3600
-    state: latest
-
+- name: Set system hostname
+  ansible.builtin.hostname:
+    name: "{{ inventory_hostname }}"
